@@ -103,7 +103,12 @@ export default function Quotes({ quotes, onClose, onAccept, onReject }) {
                     <p className="text-xs text-muted-foreground">{quote.description}</p>
                   </div>
                   <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(quote.status)}`}>
-                    {getStatusLabel(quote.status)}
+          <button
+            onClick={() => setFilter('accepted')}
+            className={'px-3 py-2 text-sm font-medium border-b-2 transition-colors border-primary text-primary bg-slate-500 border-transparent text-muted-foreground hover:text-foreground'}
+          >
+            Descargar
+          </button>
                   </span>
                 </div>
                 

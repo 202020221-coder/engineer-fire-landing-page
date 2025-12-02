@@ -1,18 +1,25 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Card } from '@/shared/components/ui/card'
-import { Button } from '@/shared/components/ui/button'
-import { Input } from '@/shared/components/ui/input'
-import { Textarea } from '@/shared/components/ui/textarea'
-import { Lightbulb, CheckCircle } from 'lucide-react'
+import { useState } from "react"
+import { Card } from "@/shared/components/ui/card"
+import { Button } from "@/shared/components/ui/button"
+import { Input } from "@/shared/components/ui/input"
+import { Textarea } from "@/shared/components/ui/textarea"
+import { Lightbulb, CheckCircle } from "lucide-react"
 
-export default function CustomService({ onAddToCart }) {
+export default function CustomService({  }) {
   const [formData, setFormData] = useState({
-    serviceName: '',
-    description: '',
-    estimatedBudget: '',
+    serviceName: "",
+    companyName: "",
+    location: "",
+    startDate: "",
+    endDate: "",
+    ruc: "",
+    email: "",
+    phone: "",
+    description: "",
   })
+
   const [submitted, setSubmitted] = useState(false)
 
   const handleChange = (e) => {
@@ -25,23 +32,36 @@ export default function CustomService({ onAddToCart }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     if (formData.serviceName && formData.description) {
       // Agregar servicio personalizado al carrito
-      onAddToCart({
-        name: `Servicio Personalizado: ${formData.serviceName}`,
-        price: formData.estimatedBudget ? parseFloat(formData.estimatedBudget) : 0,
-        type: 'custom_service',
-        description: formData.description,
-      })
-
+      // onAddToCart({
+      //   name: `Servicio Personalizado: ${formData.serviceName}`,
+      //   price: 0,
+      //   type: "custom_service",
+      //   description: formData.description,
+      //   details: {
+      //     companyName: formData.companyName,
+      //     location: formData.location,
+      //     startDate: formData.startDate,
+      //     endDate: formData.endDate,
+      //     ruc: formData.ruc,
+      //     email: formData.email,
+      //     phone: formData.phone,
+      //   },
+      // })
       setSubmitted(true)
       setFormData({
-        serviceName: '',
-        description: '',
-        estimatedBudget: '',
+        serviceName: "",
+        companyName: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+        ruc: "",
+        email: "",
+        phone: "",
+        description: "",
       })
-
       setTimeout(() => setSubmitted(false), 3000)
     }
   }
@@ -65,15 +85,16 @@ export default function CustomService({ onAddToCart }) {
           <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />
           <div>
             <p className="font-semibold text-green-900">Solicitud enviada</p>
-            <p className="text-sm text-green-700">Tu servicio personalizado ha sido agregado. Nos contactaremos pronto.</p>
+            <p className="text-sm text-green-700">
+              Tu servicio personalizado ha sido agregado. Nos contactaremos pronto.
+            </p>
           </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Nombre del Servicio */}
           <div>
-            <label className="block text-sm font-medium text-secondary mb-2">
-              Nombre del Servicio
-            </label>
+            <label className="block text-sm font-medium text-secondary mb-2">Nombre del Servicio</label>
             <Input
               type="text"
               name="serviceName"
@@ -85,10 +106,109 @@ export default function CustomService({ onAddToCart }) {
             />
           </div>
 
+          {/* Nombre de la Empresa o Personal Natural */}
           <div>
             <label className="block text-sm font-medium text-secondary mb-2">
-              Descripción del Servicio
+              Nombre de la Empresa o Personal Natural
             </label>
+            <Input
+              type="text"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              placeholder="Ej: Empresa ABC S.A."
+              className="border-gray-300"
+              required
+            />
+          </div>
+
+          {/* RUC */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">RUC</label>
+            <Input
+              type="text"
+              name="ruc"
+              value={formData.ruc}
+              onChange={handleChange}
+              placeholder="Ej: 20123456789"
+              className="border-gray-300"
+              required
+            />
+          </div>
+
+          {/* Ubicación donde se realizará el servicio */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">
+              Ubicación donde se realizará el servicio
+            </label>
+            <Input
+              type="text"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="Ej: Av. Principal 123, Piso 5"
+              className="border-gray-300"
+              required
+            />
+          </div>
+
+          {/* Fecha de Inicio y Fecha de Finalización */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-2">Fecha de Inicio</label>
+              <Input
+                type="date"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="border-gray-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-2">Fecha de Finalización</label>
+              <Input
+                type="date"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+                className="border-gray-300"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Email de Contacto */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">Email de Contacto</label>
+            <Input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Ej: contacto@empresa.com"
+              className="border-gray-300"
+              required
+            />
+          </div>
+
+          {/* Número Celular de Contacto */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">Número Celular de Contacto</label>
+            <Input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Ej: +51 987654321"
+              className="border-gray-300"
+              required
+            />
+          </div>
+
+          {/* Descripción del Servicio */}
+          <div>
+            <label className="block text-sm font-medium text-secondary mb-2">Descripción del Servicio</label>
             <Textarea
               name="description"
               value={formData.description}
@@ -98,30 +218,50 @@ export default function CustomService({ onAddToCart }) {
               required
             />
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-secondary mb-2">
-              Presupuesto Estimado (Opcional)
-            </label>
-            <div className="flex items-center">
-              <span className="text-gray-700 font-semibold mr-2">$</span>
+          <label className="block text-sm font-medium text-secondary mb-2">Agenda tu llamada</label>
+           <div className="grid grid-cols-2 gap-4">
+            
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-2">Horario tentativo 1</label>
               <Input
-                type="number"
-                name="estimatedBudget"
-                value={formData.estimatedBudget}
+                type="date"
+                name="startDate"
+                value={formData.startDate}
                 onChange={handleChange}
-                placeholder="0.00"
                 className="border-gray-300"
-                min="0"
-                step="0.01"
+                required
+              />
+               <Input
+                type="time"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="border-gray-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-secondary mb-2">Horario tentativo 2</label>
+              <Input
+                type="date"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+                className="border-gray-300"
+                required
+              />
+              <Input
+                type="time"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="border-gray-300"
+                required
               />
             </div>
           </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2"
-          >
+          <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2">
             Solicitar Servicio Personalizado
           </Button>
         </form>

@@ -11,7 +11,7 @@ export default function Cart({ items, onRemove }) {
     <div className="fixed top-16 right-4 z-40 w-96 max-w-[calc(100vw-2rem)]">
       <Card className="p-6 shadow-xl">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-foreground">Carrito de Compras</h3>
+          <h3 className="text-lg font-bold text-foreground">Carrito de Serivicios/Productos</h3>
           <span className="text-sm text-muted-foreground">({items.length})</span>
         </div>
 
@@ -44,7 +44,7 @@ export default function Cart({ items, onRemove }) {
                 <span className="text-2xl font-bold text-primary">${total}</span>
               </div>
               <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
-                Proceder al Pago
+                Proceder a Cotizar
               </Button>
             </div>
           </>
